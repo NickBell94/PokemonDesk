@@ -38,16 +38,28 @@ if (phone.length != 12) {
 
 for (let i =0; i < phone.length; i++) { 
 
-    if (i == 2) { resultString = phone.substring(0,2) + ' ';  }
+    if (i == 2) {
+         resultString = phone.substring(0,2) + ' ';
+          }
 
-    if (i == 3) { resultString += '(' +   phone.substring(2,5) + ')';  }
+    if (i == 3) { 
+        resultString += '(' +   phone.substring(2,5) + ')'; 
+     }
 
-    if (i == 4) {  resultString += ' ' + phone.substring(5,8) +'-'    }
+    if (i == 4) { 
+         resultString += ' ' + phone.substring(5,8) +'-'  
+          }
 
-    if (i == 6) {  resultString += phone.substring(8,10) +'-';    } 
+    if (i == 6) { 
+         resultString += phone.substring(8,10) +'-';  
+          } 
 
-    if (i == 10) {  resultString += phone.substring(10,12)   }
+    if (i == 10) {
+          resultString += phone.substring(10,12) 
+          }
 }
     console.log('Ответ на задание 2 ' + resultString);
 }
+
+
 console.log(formattedPhone('+71234567890'));
