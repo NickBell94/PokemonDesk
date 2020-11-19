@@ -1,65 +1,70 @@
-const firstRow = 'мама мыла раму';
-const secondRow = 'собака друг человека';
+const $btn = document.getElementById('btn-kick');
+const $enemyButton = document.getElementById('enemy-kick');
 
-function getRow(firstRow, secondRow) {
-let firstCount = 0;
-let secondCount = 0 ;
+const character = { 
+    name: 'Pikachu',
+    defaultHP: 100,
+    damageHP: 100,
+    elHP: document.getElementById('health-character'),
+    elProgressbar:document.getElementById('progressbar-character'),
+}
 
-    for(let i = 0; i <= firstRow.length; i++) { 
-        if (firstRow.charAt(i) === 'а'){
-            firstCount++;
-    };
+const enemy = { 
+    name: 'Charmander',
+    defaultHP: 100,
+    damageHP: 100,
+    elHP: document.getElementById('health-enemy'),
+    elProgressbar:document.getElementById('progressbar-enemy'),
+}
+
+$btn.addEventListener('click', function () {
+    console.log('kick');
+    changeHP(random(20), character);
+    changeHP(random(20), enemy);
+})
+
+$enemyButton.addEventListener('click', function () {
+    console.log('kick');
+    changeHP(random(50), enemy);
+})
+function init () {
+    console.log('Start game');
+    renderHP(character);
+    renderHP(enemy);
+}
+
+function renderHP (person) {
+    renderHPLife(person);
+    renderProgressbarHP(person);
+}
+
+
+function renderHPLife(person){
+        person.elHP.innerText = person.damageHP + ' / ' + person.defaultHP;
+}
+
+function renderProgressbarHP (person) {
+    person.elProgressbar.style.width = person.damageHP + '%';
+}
+
+function changeHP (count, person) {
+    if (person.damageHP < count){
+        person.damageHP = 0;
+        alert('Бедный  '+ person.name + '  проиграл бой!');
+        disableButtons();
+    } else {
+        person.damageHP -= count;
     }
-
-    for(let i = 0; i <= secondRow.length; i++) { 
-        if (secondRow.charAt(i) === 'а'){
-            secondCount++;
-    };
-    }
-
-if ( firstCount > secondCount) {
-    console.log('Ответ на задание 1 ' + firstRow);
-} else {
-    console.log('Ответ на задание 1 ' + secondRow);
-}
+   
+    renderHP(person);
 }
 
- console.log(getRow(firstRow,secondRow));
-
-
-
-
-function formattedPhone(phone) {
-let resultString = ''; 
-
-if (phone.length != 12) {
-    console.log ('Неверный формат, необходимо 12 символов в формате +712...')
+function random(num) {
+    return Math.ceil(Math.random()* num);
 }
 
-for (let i =0; i < phone.length; i++) { 
-
-    if (i == 2) {
-         resultString = phone.substring(0,2) + ' ';
-          }
-
-    if (i == 3) { 
-        resultString += '(' +   phone.substring(2,5) + ')'; 
-     }
-
-    if (i == 4) { 
-         resultString += ' ' + phone.substring(5,8) +'-'  
-          }
-
-    if (i == 6) { 
-         resultString += phone.substring(8,10) +'-';  
-          } 
-
-    if (i == 10) {
-          resultString += phone.substring(10,12) 
-          }
+function disableButtons(){
+    $btn.disabled = true;
+    $enemyButton.disabled = true;
 }
-    console.log('Ответ на задание 2 ' + resultString);
-}
-
-
-console.log(formattedPhone('+71234567890'));
+init();
