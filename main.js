@@ -61,11 +61,13 @@ $btn.addEventListener('click', function () {
     console.log('kick');
     character.changeHP(random(20) );
     enemy.changeHP(random(20));
+    secondButtonClick.reset($enemyButton);
     firstButtonClick.counterClick($btn);
 })
 
 $enemyButton.addEventListener('click', function () {
     enemy.changeHP(random(20));
+    firstButtonClick.reset($btn);
     secondButtonClick.counterClick($enemyButton);
 })
 function init () {
