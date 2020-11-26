@@ -28,15 +28,45 @@ const enemy = {
     renderHPLife: renderHPLife,
     renderProgressbarHP:renderProgressbarHP,
 }
+const firstButtonClick = clickCounter();
+const secondButtonClick = clickCounter();
+
+
+
+function clickCounter (button) { 
+    
+    let counter = 1; 
+
+
+    return  {
+        counterClick: function (button,press = 6) {
+        console.log(`Сделано кликов  ${counter} по кнопке ${button.id},  осталось ${press-counter} кликов`);  
+        button.textContent = `${button.id} Сlicks left -  ${press-counter} `
+           
+        if ( counter >= press){
+            button.disabled = true;
+            confirm('Limit reached, please try again later')
+        } 
+        counter++;
+    }, 
+    reset: function (button) {
+        counter = 1; 
+        button.disabled = false; 
+        button.textContent = `${button.id} You can click here again!`
+    }
+}
+}
 
 $btn.addEventListener('click', function () {
     console.log('kick');
     character.changeHP(random(20) );
     enemy.changeHP(random(20));
+    firstButtonClick.counterClick($btn);
 })
 
 $enemyButton.addEventListener('click', function () {
     enemy.changeHP(random(20));
+    secondButtonClick.counterClick($enemyButton);
 })
 function init () {
     console.log('Start game');
@@ -106,7 +136,8 @@ function generateLog (firstPerson, secondPerson, count){
     createHtmlLogs (htmlLogs);
      
     }
-    function createHtmlLogs (htmlLogs) {
+
+function createHtmlLogs (htmlLogs) {
         const $logs = document.querySelector('#logs');
         const $p = document.createElement('p');
         let i = logs[random(logs.length - 1)];
